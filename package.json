@@ -1,0 +1,56 @@
+{
+	"name": "prisma-seed-migration-sync",
+	"version": "0.1.0",
+	"description": "Replay pending Prisma migration SQL onto JSON seed data files; apply seed packs at boot.",
+	"license": "MIT",
+	"author": "Austen Strine",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/austenstrine/prisma-seed-migration-sync.git"
+	},
+	"bugs": {
+		"url": "https://github.com/austenstrine/prisma-seed-migration-sync/issues"
+	},
+	"homepage": "https://github.com/austenstrine/prisma-seed-migration-sync#readme",
+	"keywords": [
+		"prisma",
+		"seed",
+		"migration",
+		"json",
+		"sync"
+	],
+	"engines": {
+		"node": ">=18"
+	},
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"bin": {
+		"prisma-seed-migration-sync": "dist/cli.js"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "tsc",
+		"prepare": "npm run build",
+		"prepublishOnly": "npm test && npm run build",
+		"test": "ts-node --transpile-only test/sql.test.ts && ts-node --transpile-only test/reshape.test.ts && ts-node --transpile-only test/files.test.ts && ts-node --transpile-only test/sync.test.ts && ts-node --transpile-only test/apply.test.ts"
+	},
+	"peerDependencies": {
+		"@prisma/client": ">=5.0.0",
+		"prisma": ">=5.0.0"
+	},
+	"dependencies": {
+		"@prisma/internals": "5.19.1"
+	},
+	"devDependencies": {
+		"@types/node": "^20.16.2",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.5.4"
+	}
+}
